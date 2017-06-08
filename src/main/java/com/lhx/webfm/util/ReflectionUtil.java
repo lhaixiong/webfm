@@ -3,10 +3,7 @@ package com.lhx.webfm.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 
 /**
  * 反射工具类
@@ -38,7 +35,9 @@ public class ReflectionUtil {
      */
     public static void setField(Object obj,Field field,Object value){
         try {
+            field.setAccessible(true);
             field.set(obj,value);
+            log.info(obj.getClass().getSimpleName()+"注入属性："+value.getClass().getSimpleName());
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -123,13 +122,20 @@ public class ReflectionUtil {
         return null;
     }
 
-    /**
-     * 调用（当前类或父类）方法，忽略修饰符（private，protected）
-     * @param className 类的全路径，类必须要有一个无参构造函数
-     * @param methodName 要调用的方法名
-     * @param args 方法参数
-     * @return 返回方法调用结果
-     */
+    public static Object invokeMethod(Object object,Method method,Object... args){
+        Object result=null;
+        try {
+            method.setAccessible(true);
+            result=method.invoke(object,args);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
     public static Object invokeMethod(String className,String methodName,Object... args){
         try {
             Class clazz=Class.forName(className);

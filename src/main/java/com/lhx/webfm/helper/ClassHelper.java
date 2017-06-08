@@ -1,6 +1,7 @@
 package com.lhx.webfm.helper;
 
 import com.lhx.webfm.annotation.MyController;
+import com.lhx.webfm.annotation.MyDao;
 import com.lhx.webfm.annotation.MyService;
 import com.lhx.webfm.constant.ConfigConst;
 import com.lhx.webfm.util.MyClassUtil;
@@ -54,12 +55,26 @@ public final class ClassHelper {
     }
 
     /**
-     * 获取应用包名下的所有自定义注解类(包括MyService、MyController注解等)
+     * 获取应用包名下的所有MyDao注解类
+     */
+    public static Set<Class<?>> getDaoClassSet(){
+        Set<Class<?>> set=new HashSet<>();
+        for (Class<?> clz : CLASS_SET) {
+            if (clz.isAnnotationPresent(MyDao.class)) {
+                set.add(clz);
+            }
+        }
+        return set;
+    }
+
+    /**
+     * 获取应用包名下的所有自定义注解类(包括MyController、MyService、MyDao注解等)
      */
     public static Set<Class<?>> getBeanClassSet(){
         Set<Class<?>> set=new HashSet<>();
         set.addAll(getControllerClassSet());
         set.addAll(getServiceClassSet());
+        set.addAll(getDaoClassSet());
         return set;
     }
 

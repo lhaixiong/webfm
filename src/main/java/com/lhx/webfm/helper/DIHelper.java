@@ -2,6 +2,8 @@ package com.lhx.webfm.helper;
 
 import com.lhx.webfm.annotation.MyInject;
 import com.lhx.webfm.util.ReflectionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -9,11 +11,13 @@ import java.util.Map;
 /**
  * 依赖注入助手类
  */
-public final class IocHelper {
+public final class DIHelper {
+    private static final Logger log= LoggerFactory.getLogger(DIHelper.class);
     static {
         //注解bean类与bean实例的映射集合
         Map<Class<?>, Object> beanMap = BeanHelper.getBeanMap();
         if (!beanMap.isEmpty()) {
+            log.info("bean注入属性开始....");
             //循环bean
             for (Class<?> clz : beanMap.keySet()) {
                 Field[] beanFields = clz.getDeclaredFields();
@@ -32,6 +36,9 @@ public final class IocHelper {
                     }
                 }
             }
+            log.info("bean注入属性结束....");
+        }else {
+            log.info("没有要注入属性的bean");
         }
     }
 }

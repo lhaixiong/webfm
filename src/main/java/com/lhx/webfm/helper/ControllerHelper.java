@@ -3,6 +3,8 @@ package com.lhx.webfm.helper;
 import com.lhx.webfm.annotation.MyAction;
 import com.lhx.webfm.bean.MyHandler;
 import com.lhx.webfm.bean.MyRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ import java.util.Set;
  * 控制器助手类
  */
 public final class ControllerHelper {
+    private static final Logger log= LoggerFactory.getLogger(ControllerHelper.class);
     /**
      *请求和处理器映射集合
      */
@@ -36,6 +39,7 @@ public final class ControllerHelper {
                             String requestPath=splits[1];
                             MyRequest req=new MyRequest(requestMethod,requestPath);
                             MyHandler handler=new MyHandler(ctrlClz,method);
+                            log.info("mapping:{},handler:{}",req,handler);
                             ACTION_MAP.put(req,handler);
                         }
                     }

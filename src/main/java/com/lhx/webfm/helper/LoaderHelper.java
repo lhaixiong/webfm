@@ -9,10 +9,10 @@ public final class LoaderHelper {
     public static void init(){
         Class<?>[] classes={ClassHelper.class,
                 BeanHelper.class,
-                IocHelper.class,
+                DIHelper.class,
                 ControllerHelper.class};
         for (Class<?> clz : classes) {
-            MyClassUtil.loadClass(clz.getName(),false);
+            MyClassUtil.loadClass(clz.getName(),true);
         }
     }
 }

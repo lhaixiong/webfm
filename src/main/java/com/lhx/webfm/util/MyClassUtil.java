@@ -31,6 +31,7 @@ public final class MyClassUtil {
      * @return
      */
     public static Class<?> loadClass(String className,boolean isInitialized){
+        log.info("加载类:{}",className);
         Class<?> clz=null;
         try {
              clz=Class.forName(className, isInitialized, getClassLoader());
