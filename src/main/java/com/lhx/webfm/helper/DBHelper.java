@@ -38,6 +38,61 @@ public class DBHelper {
 			log.error("load jdbc driver error",e);
 		}
 	}
+
+	/**
+	 * 开启事务
+	 */
+	public static void beginTransation(){
+		Connection conn=getConnection();
+		if (conn != null) {
+			try {
+				conn.setAutoCommit(false);
+			}catch (Exception e){
+				log.error("begin transaction failure",e);
+				throw new RuntimeException(e);
+			}finally {
+				CONNECTION_THREAD_LOCAL.set(conn);
+			}
+		}
+	}
+	/**
+	 * 提交事务
+	 */
+	public static void commitTransation(){
+		Connection conn=getConnection();
+		if (conn != null) {
+			try {
+				conn.commit();
+				conn.close();
+			}catch (Exception e){
+				log.error("commit transaction failure",e);
+				throw new RuntimeException(e);
+			}finally {
+				CONNECTION_THREAD_LOCAL.remove();
+			}
+		}
+	}
+	/**
+	 * 回滚事务
+	 */
+	/**
+	 * 提交事务
+	 */
+	public static void rollbackTransation(){
+		Connection conn=getConnection();
+		if (conn != null) {
+			try {
+				conn.rollback();
+				conn.close();
+			}catch (Exception e){
+				log.error("rollback transaction failure",e);
+				throw new RuntimeException(e);
+			}finally {
+				CONNECTION_THREAD_LOCAL.remove();
+			}
+		}
+	}
+
 	public static Connection getConnection(){
 		Connection conn=CONNECTION_THREAD_LOCAL.get();
 		if (conn == null) {

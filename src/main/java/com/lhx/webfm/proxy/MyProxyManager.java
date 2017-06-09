@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MyProxyManager {
     @SuppressWarnings("unchecked")
-    public static <T> T createProxy(final Class<?> targetClass,List<MyProxy> list){
+    public static <T> T createProxy(final Class<?> targetClass,final List<MyProxy> list){
         return (T) Enhancer.create(targetClass, new MethodInterceptor() {
             @Override
             public Object intercept(Object targetObject, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {

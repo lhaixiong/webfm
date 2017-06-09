@@ -49,6 +49,9 @@ public final class BeanHelper {
      * @param obj
      */
     public static void addBean(Class<?> clz,Object obj){
+        if(BEAN_MAP.containsKey(clz)){
+            log.info("BeanHelper addBean方法已包含类{},原有的实例被代理对象覆盖...",clz.getName());
+        }
         BEAN_MAP.put(clz,obj);
     }
 }
