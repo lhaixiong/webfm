@@ -6,6 +6,7 @@ import com.lhx.webfm.annotation.MyService;
 import com.lhx.webfm.constant.ConfigConst;
 import com.lhx.webfm.util.MyClassUtil;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,39 +33,21 @@ public final class ClassHelper {
      * 获取应用包名下的所有MyController注解类
      */
     public static Set<Class<?>> getControllerClassSet(){
-        Set<Class<?>> set=new HashSet<>();
-        for (Class<?> clz : CLASS_SET) {
-            if (clz.isAnnotationPresent(MyController.class)) {
-                set.add(clz);
-            }
-        }
-        return set;
+        return getClassSetByAnnotation(MyController.class);
     }
 
     /**
      * 获取应用包名下的所有MyService注解类
      */
     public static Set<Class<?>> getServiceClassSet(){
-        Set<Class<?>> set=new HashSet<>();
-        for (Class<?> clz : CLASS_SET) {
-            if (clz.isAnnotationPresent(MyService.class)) {
-                set.add(clz);
-            }
-        }
-        return set;
+        return getClassSetByAnnotation(MyService.class);
     }
 
     /**
      * 获取应用包名下的所有MyDao注解类
      */
     public static Set<Class<?>> getDaoClassSet(){
-        Set<Class<?>> set=new HashSet<>();
-        for (Class<?> clz : CLASS_SET) {
-            if (clz.isAnnotationPresent(MyDao.class)) {
-                set.add(clz);
-            }
-        }
-        return set;
+        return getClassSetByAnnotation(MyDao.class);
     }
 
     /**
@@ -78,4 +61,29 @@ public final class ClassHelper {
         return set;
     }
 
+    /**
+     * 获取应用包名下某父类(接口)的所有子类(实现)
+     * @param superClass
+     * @return
+     */
+    public static Set<Class<?>> getClassSetBySuper(Class<?> superClass){
+        Set<Class<?>> set=new HashSet<>();
+        for (Class<?> aClass : CLASS_SET) {
+            if (superClass.isAssignableFrom(aClass)&&!superClass.equals(aClass)) {
+                set.add(aClass);
+            }
+        }
+        return set;
+    }
+
+
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClz){
+        Set<Class<?>> set=new HashSet<>();
+        for (Class<?> aClass : CLASS_SET) {
+           if(aClass.isAnnotationPresent(annotationClz)){
+               set.add(aClass);
+           }
+        }
+        return set;
+    }
 }

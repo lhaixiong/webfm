@@ -13,6 +13,8 @@ import com.lhx.webfm.util.MyCodeUtil;
 import com.lhx.webfm.util.MyStreamUtil;
 import com.lhx.webfm.util.ReflectionUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -31,8 +33,10 @@ import java.util.Map;
  */
 @WebServlet(urlPatterns = {"/*"},loadOnStartup = 0)
 public class MyDispatcherServlet extends HttpServlet {
+    private static final Logger log= LoggerFactory.getLogger(MyDispatcherServlet.class);
     @Override
     public void init(ServletConfig config) throws ServletException {
+        log.info("MyDispatcherServlet初始化开始......");
         //初始化相关Helper类
         LoaderHelper.init();
         //获取ServletContext对象(用于注册servlet)
@@ -43,11 +47,12 @@ public class MyDispatcherServlet extends HttpServlet {
         //注册处理静态资源的默认servlet
         ServletRegistration defaultServlet=sc.getServletRegistration("default");
         defaultServlet.addMapping(ConfigConst.ASSET_PATH+"*");
+        log.info("MyDispatcherServlet初始化结束......");
     }
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        //获取请求方法和请求路径
+        //获取请求方法(GET/POST/PUT/DELETE)和请求路径
         String requestMethod=req.getMethod();
         String requestPath=req.getPathInfo();
         //获取action处理器

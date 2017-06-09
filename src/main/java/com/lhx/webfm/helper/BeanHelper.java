@@ -42,4 +42,13 @@ public final class BeanHelper {
         }
         return (T) BEAN_MAP.get(clz);
     }
+
+    /**
+     * 添加bean实例映射
+     * @param clz
+     * @param obj
+     */
+    public static void addBean(Class<?> clz,Object obj){
+        BEAN_MAP.put(clz,obj);
+    }
 }

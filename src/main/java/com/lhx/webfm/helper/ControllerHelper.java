@@ -23,6 +23,7 @@ public final class ControllerHelper {
     static {
         Set<Class<?>> ctrlClassSet = ClassHelper.getControllerClassSet();
         //循环controller注解类
+        log.info("请求与处理器映射开始...");
         for (Class<?> ctrlClz : ctrlClassSet) {
             Method[] methods = ctrlClz.getDeclaredMethods();
             //循环方法
@@ -47,6 +48,7 @@ public final class ControllerHelper {
                 }
             }
         }
+        log.info("请求与处理器映射结束...");
     }
 
     /**

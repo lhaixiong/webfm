@@ -17,7 +17,7 @@ public final class DIHelper {
         //注解bean类与bean实例的映射集合
         Map<Class<?>, Object> beanMap = BeanHelper.getBeanMap();
         if (!beanMap.isEmpty()) {
-            log.info("bean注入属性开始....");
+            log.info("依赖注入开始....");
             //循环bean
             for (Class<?> clz : beanMap.keySet()) {
                 Field[] beanFields = clz.getDeclaredFields();
@@ -36,7 +36,7 @@ public final class DIHelper {
                     }
                 }
             }
-            log.info("bean注入属性结束....");
+            log.info("依赖注入属性结束....");
         }else {
             log.info("没有要注入属性的bean");
         }

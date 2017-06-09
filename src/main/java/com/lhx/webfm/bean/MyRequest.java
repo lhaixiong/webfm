@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 public class MyRequest {
     /**
-     * 请求方法
+     * 请求方法(GET/POST/PUT/DELETE)
      */
     private String requestMethod;
     /**

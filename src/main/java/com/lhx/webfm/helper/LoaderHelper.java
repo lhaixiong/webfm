@@ -9,6 +9,7 @@ public final class LoaderHelper {
     public static void init(){
         Class<?>[] classes={ClassHelper.class,
                 BeanHelper.class,
+                AOPHelper.class,//aop要在di之前加载
                 DIHelper.class,
                 ControllerHelper.class};
         for (Class<?> clz : classes) {

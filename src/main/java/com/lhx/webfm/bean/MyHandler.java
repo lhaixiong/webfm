@@ -33,8 +33,8 @@ public class MyHandler {
     @Override
     public String toString() {
         return "MyHandler{" +
-                "ctrlClass=" + ctrlClass +
-                ", actionMethod=" + actionMethod +
+                "ctrlClass=" + ctrlClass.getSimpleName() +
+                ", actionMethod=" + actionMethod.getName() +
                 '}';
     }
 }
