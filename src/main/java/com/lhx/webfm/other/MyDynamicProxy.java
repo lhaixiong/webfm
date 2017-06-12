@@ -1,4 +1,4 @@
-package com.lhx.webfm.pattern;
+package com.lhx.webfm.other;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

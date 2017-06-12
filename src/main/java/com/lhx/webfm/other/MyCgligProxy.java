@@ -1,4 +1,4 @@
-package com.lhx.webfm.pattern;
+package com.lhx.webfm.other;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
