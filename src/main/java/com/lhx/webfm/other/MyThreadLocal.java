@@ -1,11 +1,10 @@
 package com.lhx.webfm.other;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MyThreadLocal<T> {
-    private Map<Thread,T> container= Collections.synchronizedMap(new HashMap<Thread, T>());
+    private Map<Thread,T> container= new ConcurrentHashMap<>();
     public void set(T t){
         Thread thread=Thread.currentThread();
         container.put(thread,t);
